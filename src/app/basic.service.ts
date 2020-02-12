@@ -1,3 +1,4 @@
+import { LoggerService } from './logger.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,9 +6,11 @@ import { Injectable } from '@angular/core';
 })
 export class BasicService {
 
-  constructor() { }
+  constructor(private loggerService: LoggerService) { }
 
   plus(a, b) {
-    return a + b;
+    const res = a + b;
+    this.loggerService.log(res);
+    return res;
   }
 }
