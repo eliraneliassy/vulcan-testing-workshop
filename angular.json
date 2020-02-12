@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "vulcan-testing-workshop": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "vulcan-testing-workshop"
+    }
+  },
+  "defaultProject": "vulcan-testing-workshop",
+  "cli": {
+    "analytics": false
+  }
 }
