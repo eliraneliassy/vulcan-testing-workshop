@@ -1,0 +1,15 @@
+<div class="item" *ngIf="item">
+    <div class="title">
+        {{item.description}}
+    </div>
+
+    <div class="price">
+        {{item.price | currency}}
+    </div>
+
+    <div class="img">
+        <img [src]="item.imageUrl">
+    </div>
+
+    <button (click)="addToCartClicked()">Add To Cart</button>
+</div>
