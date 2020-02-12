@@ -1,7 +1,13 @@
 <div class="conatiner">
 
-    <div class="feed">
-        <app-item *ngFor="let item of feed$ | async" [item]="item"></app-item>
-    </div>
+    <mat-tab-group>
+        <mat-tab label="Fashion">
+            <app-item *ngFor="let item of fashion$ | async" [item]="item" class="item"></app-item>
+        </mat-tab>
+        <mat-tab label="Sports">
+            <app-item *ngFor="let item of sports$ | async" [item]="item" class="item"></app-item>
+        </mat-tab>
+    </mat-tab-group>
+
 
 </div>

@@ -4,10 +4,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemComponent } from './item.component';
 import { By } from '@angular/platform-browser';
 import { CurrencyPipe } from '@angular/common';
+import { Item } from '../item.interface';
 
 describe('ItemComponent', () => {
   let component: ItemComponent;
   let fixture: ComponentFixture<ItemComponent>;
+  let item;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,6 +22,11 @@ describe('ItemComponent', () => {
     fixture = TestBed.createComponent(ItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    item = ITEMS_MOCK[0];
+    component.item = item;
+
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -27,11 +34,6 @@ describe('ItemComponent', () => {
   });
 
   it('should render item', () => {
-    const item = ITEMS_MOCK[0];
-    component.item = item;
-
-    fixture.detectChanges();
-
 
     const title = fixture.debugElement.query(By.css('.title'));
     expect(title.nativeElement.innerText).toEqual(item.description);
@@ -44,6 +46,23 @@ describe('ItemComponent', () => {
 
     expect(price.nativeElement.innerText).toEqual(pipe.transform(item.price));
 
+
+  });
+
+  it('emit add to cart event - with spys', () => {
+    spyOn(component.addToCart, 'emit');
+
+    component.addToCartClicked();
+
+    expect(component.addToCart.emit).toHaveBeenCalledTimes(1);
+  });
+
+  it('emit add to cart - observables', () => {
+    component.addToCart.subscribe((res: Item) => {
+      expect(res._id).toEqual(item._id);
+    });
+
+    component.addToCartClicked();
 
   });
 });

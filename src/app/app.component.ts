@@ -10,11 +10,14 @@ import { Item } from './item.interface';
 })
 export class AppComponent implements OnInit {
 
-  feed$: Observable<Item[]>;
+  // feed$: Observable<Item[]>;
+  fashion$: Observable<Item[]>;
+  sports$: Observable<Item[]>;
 
   constructor(private feedService: FeedService) { }
 
   ngOnInit(): void {
-    this.feed$ = this.feedService.getFeed();
+    this.fashion$ = this.feedService.getFashion();
+    this.sports$ = this.feedService.getSports();
   }
 }

@@ -12,4 +12,12 @@ export class FeedService {
   getFeed(): Observable<Item[]> {
     return this.httpClient.get<Item[]>('http://localhost:4700/feed');
   }
+
+  getFashion(): Observable<Item[]> {
+    return this.httpClient.get<Item[]>('http://localhost:4700/fashion');
+  }
+
+  getSports(): Observable<Item[]> {
+    return this.httpClient.get<Item[]>('http://localhost:4700/sports');
+  }
 }
