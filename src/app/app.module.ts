@@ -7,11 +7,16 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ItemComponent } from './item/item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DiscountPipe } from './discount.pipe';
+import { ChangeColorDirective } from './change-color.directive';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemComponent
+    ItemComponent,
+    DiscountPipe,
+    ChangeColorDirective,
   ],
   imports: [
     BrowserModule,

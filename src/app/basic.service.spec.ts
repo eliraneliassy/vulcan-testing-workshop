@@ -19,7 +19,7 @@ import { map, switchMap, mergeMap } from 'rxjs/operators';
 //   });
 // });
 
-describe('BasicService', () => {
+xdescribe('BasicService', () => {
 
   let loggerService: LoggerService;
   let service: BasicService;
@@ -113,12 +113,10 @@ describe('BasicService', () => {
     expect(result).toBeObservable(expected);
   });
 
-  fit('rxjs map operator', () => {
+  it('rxjs map operator', () => {
     const obs1$ = cold('-a-------a--|', { a: 10 });
-    const obs2$ = cold('-b-b-b-|', { a: 20 });
-
-    const expected = null;
-
+    const obs2$ = cold('-b-b-b-|', { b: 20 });
+    const expected = cold('--x-x-x---x-x-x-|', { x: 30 });
 
     const result = obs1$.pipe(mergeMap(x => obs2$.pipe(map(y => x + y))));
     expect(result).toBeObservable(expected);
