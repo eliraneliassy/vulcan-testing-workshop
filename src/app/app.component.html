@@ -1,5 +1,6 @@
 <div class="conatiner">
 
+
     <mat-tab-group>
         <mat-tab label="Fashion">
             <app-item *ngFor="let item of fashion$ | async" [item]="item" class="item"></app-item>
