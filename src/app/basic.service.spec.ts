@@ -4,7 +4,7 @@ import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { BasicService } from './basic.service';
 import { VirtualTimeScheduler, asyncScheduler } from 'rxjs';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { map } from 'rxjs/operators';
+import { map, switchMap, mergeMap } from 'rxjs/operators';
 
 // describe('BasicService', () => {
 //   let service: BasicService;
@@ -19,7 +19,7 @@ import { map } from 'rxjs/operators';
 //   });
 // });
 
-fdescribe('BasicService', () => {
+describe('BasicService', () => {
 
   let loggerService: LoggerService;
   let service: BasicService;
@@ -59,7 +59,7 @@ fdescribe('BasicService', () => {
     expect(res).toEqual([0, 1, 2, 3]);
   });
 
-  it('should emit 4 numbers - fakeasync', fakeAsync(() => {
+  xit('should emit 4 numbers - fakeasync', fakeAsync(() => {
     const res = [];
 
     service.getRange().subscribe(
@@ -104,11 +104,23 @@ fdescribe('BasicService', () => {
 
   it('rxjs map operator', () => {
     const obs1$ = cold('-a-b-|', { a: 10, b: 20 });
-    const obs2$ = cold('-a-a-a|', { a: 10 });
+    const obs2$ = cold('-a-a-a-|', { a: 10 });
+
+    const expected = cold('--x-y-y-y-|', { x: 20, y: 30 });
+
+
+    const result = obs1$.pipe(switchMap(x => obs2$.pipe(map(y => x + y))));
+    expect(result).toBeObservable(expected);
+  });
+
+  fit('rxjs map operator', () => {
+    const obs1$ = cold('-a-------a--|', { a: 10 });
+    const obs2$ = cold('-b-b-b-|', { a: 20 });
+
     const expected = null;
 
 
-    const result = obs1$.pipe(map(x => x + 1));
+    const result = obs1$.pipe(mergeMap(x => obs2$.pipe(map(y => x + y))));
     expect(result).toBeObservable(expected);
   });
 
